@@ -186,7 +186,7 @@ function drawSolid(model) {
 
 }
 
-function drawScene() {
+function drawScene() { 
     
   
   // se inicializan los buffers de color y de profundidad
