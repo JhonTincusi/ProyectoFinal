@@ -186,171 +186,143 @@ function drawSolid(model) {
 
 }
 
-function drawScene() { 
+function drawScene() {
     
   
   // se inicializan los buffers de color y de profundidad
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
   
-  // se calcula la matriz de transformación del modelo
+  
+  //-----------------------------------------------------------------
+  // DIBUJAR LLANTAS
+  DrawPiso();
+  //Parte delantera
+  DrawLlanta(1, 0.445, 1);
+  DrawLlanta(1, 0.445, -1);
+  DrawMetalLlanta(1, 0.4, 1);
+  DrawMetalLlanta(1, 0.4, -1);
+  DrawSoporte(1, 0.4, -1);
+
+  // Parte trasera
+  DrawLlanta(-2, 0.445, 1);
+  DrawLlanta(-2, 0.445, -1);
+  DrawMetalLlanta(-2, 0.4, 1);
+  DrawMetalLlanta(-2, 0.4, -1);
+  DrawSoporte(-2, 0.4, -1);
+
+  //Cuerpo
+  DrawCuerpo
+
+
+
+
+
+
+
+  //-----------------FUNCIONES-------------------------------
+  function DrawSoporte(x,y,z)
+  {
+     // se calcula la matriz de transformación del modelo
   var modelMatrix = mat4.create();
   mat4.identity  (modelMatrix);
-  mat4.scale     (modelMatrix, modelMatrix, [0.4, 0.4, 0.4]);
-
+  mat4.translate  (modelMatrix,modelMatrix, [x,y,z]);
+  mat4.scale     (modelMatrix, modelMatrix, [0.1, 0.1, 2]);
   // se opera la matriz de transformacion de la camara con la del modelo y se envia al shader
   var modelViewMatrix = mat4.create();
   mat4.multiply     (modelViewMatrix, getCameraMatrix(), modelMatrix);
   setShaderModelViewMatrix(modelViewMatrix);
-
   // se obtiene la matriz de transformacion de la normal y se envia al shader
   var normalMatrix = mat3.create();
   normalMatrix = getNormalMatrix(modelViewMatrix);
   setShaderNormalMatrix(normalMatrix);
-  
-
-
-
-  
   // se obtiene la matriz de transformacion de la proyeccion y se envia al shader
   var projectionMatrix  = mat4.create();
   projectionMatrix = getProjectionMatrix();
   setShaderProjectionMatrix(projectionMatrix);
-  
   // se envia al Shader el material
-  setShaderMaterial(Gold);
-  
+  setShaderMaterial(Silver);
   // se dibuja la primitiva seleccionada
   drawSolid(exampleCylinder);
-  drawSolid(exampleCone);
-  
- 
+  }
 
-
-
-  // se calcula la matriz de transformación del modelo
+  function DrawMetalLlanta(x,y,z)
+  {
+     // se calcula la matriz de transformación del modelo
   var modelMatrix = mat4.create();
   mat4.identity  (modelMatrix);
-  mat4.scale     (modelMatrix, modelMatrix, [0.3, 0.3, 0.3]);
-  mat4.translate(modelMatrix, modelMatrix, [-1, 0, 0]); 
-  
+  mat4.translate  (modelMatrix,modelMatrix, [x,y,z]);
+  mat4.scale     (modelMatrix, modelMatrix, [0.2, 0.2, 0.2]);
   // se opera la matriz de transformacion de la camara con la del modelo y se envia al shader
   var modelViewMatrix = mat4.create();
   mat4.multiply     (modelViewMatrix, getCameraMatrix(), modelMatrix);
   setShaderModelViewMatrix(modelViewMatrix);
-  
   // se obtiene la matriz de transformacion de la normal y se envia al shader
   var normalMatrix = mat3.create();
   normalMatrix = getNormalMatrix(modelViewMatrix);
   setShaderNormalMatrix(normalMatrix);
-  
   // se obtiene la matriz de transformacion de la proyeccion y se envia al shader
   var projectionMatrix  = mat4.create();
   projectionMatrix = getProjectionMatrix();
   setShaderProjectionMatrix(projectionMatrix);
-  
   // se envia al Shader el material
-  setShaderMaterial(Bronze);
-  
-  // se dibuja la primitiva seleccionada
-  
-  drawSolid(exampleSphere);
-
-
-
-
-
-  // se calcula la matriz de transformación del modelo
-  var modelMatrix = mat4.create();
-  mat4.identity  (modelMatrix);
-  mat4.scale     (modelMatrix, modelMatrix, [0.3, 0.3, 0.3]);
-  mat4.translate(modelMatrix, modelMatrix, [1, 0, 0]); 
-  
-  // se opera la matriz de transformacion de la camara con la del modelo y se envia al shader
-  var modelViewMatrix = mat4.create();
-  mat4.multiply     (modelViewMatrix, getCameraMatrix(), modelMatrix);
-  setShaderModelViewMatrix(modelViewMatrix);
-  
-  // se obtiene la matriz de transformacion de la normal y se envia al shader
-  var normalMatrix = mat3.create();
-  normalMatrix = getNormalMatrix(modelViewMatrix);
-  setShaderNormalMatrix(normalMatrix);
-  
-  // se obtiene la matriz de transformacion de la proyeccion y se envia al shader
-  var projectionMatrix  = mat4.create();
-  projectionMatrix = getProjectionMatrix();
-  setShaderProjectionMatrix(projectionMatrix);
-  
-  // se envia al Shader el material
-  setShaderMaterial(Bronze);
-  
+  setShaderMaterial(Silver);
   // se dibuja la primitiva seleccionada
   drawSolid(exampleSphere);
+  }
 
-
-
-
-
-  // se calcula la matriz de transformación del modelo
+  function DrawPiso()
+  {
+    // se calcula la matriz de transformación del modelo
   var modelMatrix = mat4.create();
   mat4.identity  (modelMatrix);
-  mat4.scale     (modelMatrix, modelMatrix, [0.4, 0.4, 0.4]);
-  mat4.translate(modelMatrix, modelMatrix, [0, 0, 2]); 
-  
+  mat4.translate  (modelMatrix,modelMatrix, [-1, 0, 0]);
+  mat4.scale     (modelMatrix, modelMatrix, [5, 5, 5]);
   // se opera la matriz de transformacion de la camara con la del modelo y se envia al shader
   var modelViewMatrix = mat4.create();
   mat4.multiply     (modelViewMatrix, getCameraMatrix(), modelMatrix);
   setShaderModelViewMatrix(modelViewMatrix);
-  
   // se obtiene la matriz de transformacion de la normal y se envia al shader
   var normalMatrix = mat3.create();
   normalMatrix = getNormalMatrix(modelViewMatrix);
   setShaderNormalMatrix(normalMatrix);
-  
   // se obtiene la matriz de transformacion de la proyeccion y se envia al shader
   var projectionMatrix  = mat4.create();
   projectionMatrix = getProjectionMatrix();
   setShaderProjectionMatrix(projectionMatrix);
-  
   // se envia al Shader el material
-  setShaderMaterial(Gold);
-  
+  setShaderMaterial(Silver);
   // se dibuja la primitiva seleccionada
+  drawSolid(examplePlane);
+  }
+
+  function DrawLlanta(x,y,z)
+  {
+    var modelLlanta = mat4.create();
+    mat4.identity  (modelLlanta);
+    mat4.translate  (modelLlanta,modelLlanta, [x,y,z]);
+    mat4.scale     (modelLlanta, modelLlanta, [0.3, 0.3, 0.3]);
+    // se opera la matriz de transformacion de la camara con la del modelo y se envia al shader
+    var modelViewMatrix = mat4.create();
+    mat4.multiply     (modelViewMatrix, getCameraMatrix(), modelLlanta);
+    setShaderModelViewMatrix(modelViewMatrix);
+    // se obtiene la matriz de transformacion de la normal y se envia al shader
+    var normalMatrix = mat3.create();
+    normalMatrix = getNormalMatrix(modelViewMatrix);
+    setShaderNormalMatrix(normalMatrix);
+    // se obtiene la matriz de transformacion de la proyeccion y se envia al shader
+    var projectionMatrix  = mat4.create();
+    projectionMatrix = getProjectionMatrix();
+    setShaderProjectionMatrix(projectionMatrix);
+    // se envia al Shader el material
+    setShaderMaterial(Silver);
+    // se dibuja la primitiva seleccionada
+    drawSolid(myTorus);
+  }
+
   
-  drawSolid(exampleCone);
 
 
-
-  // se calcula la matriz de transformación del modelo
-  var modelMatrix = mat4.create();
-  mat4.identity  (modelMatrix);
-  mat4.scale     (modelMatrix, modelMatrix, [0.4, 0.4, 0.4]);
-  
-  
-  // se opera la matriz de transformacion de la camara con la del modelo y se envia al shader
-  var modelViewMatrix = mat4.create();
-  mat4.multiply     (modelViewMatrix, getCameraMatrix(), modelMatrix);
-  setShaderModelViewMatrix(modelViewMatrix);
-  
-  // se obtiene la matriz de transformacion de la normal y se envia al shader
-  var normalMatrix = mat3.create();
-  normalMatrix = getNormalMatrix(modelViewMatrix);
-  setShaderNormalMatrix(normalMatrix);
-  
-  // se obtiene la matriz de transformacion de la proyeccion y se envia al shader
-  var projectionMatrix  = mat4.create();
-  projectionMatrix = getProjectionMatrix();
-  setShaderProjectionMatrix(projectionMatrix);
-  
-  // se envia al Shader el material
-  setShaderMaterial(Esmerald);
-  
-  // se dibuja la primitiva seleccionada
-  
-  drawSolid(exampleCylinder);
-  
 }
-
-
 
 function initHandlers() {
     
@@ -414,7 +386,7 @@ function initHandlers() {
 
   var botones = document.getElementsByTagName("button");
   
-  /*botones[0].addEventListener("click",
+  botones[0].addEventListener("click",
     function(){
       selectedPrimitive = examplePlane;
       requestAnimationFrame(drawScene);
@@ -426,19 +398,16 @@ function initHandlers() {
       selectedPrimitive = exampleCube;
       requestAnimationFrame(drawScene);
     },
-    false);*/
+    false);
   
   botones[2].addEventListener("click",
     function(){
-      
-      selectedPrimitive = exampleCylinder;
       selectedPrimitive = exampleCone;
       requestAnimationFrame(drawScene);
-      requestAnimationFrame(drawScene2);
     },
     false);
   
-  /*botones[3].addEventListener("click",
+  botones[3].addEventListener("click",
     function(){
       selectedPrimitive = exampleCylinder;
       requestAnimationFrame(drawScene);
@@ -458,7 +427,7 @@ function initHandlers() {
       requestAnimationFrame(drawScene);
     },
     false);
-*/
+
   var colors = document.getElementsByTagName("input");
   
   colors[0].addEventListener("change",
